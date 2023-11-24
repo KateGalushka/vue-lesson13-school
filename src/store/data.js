@@ -1,0 +1,33 @@
+export const subjects = [
+	{ id: 1, title: 'Математика' },
+	{ id: 2, title: 'Українська мова'},
+	{ id: 3, title: 'Англійська мова'},
+	{ id: 4, title: 'Фізика'},
+	{ id: 5, title: 'Хімія'}, 
+	{ id: 6, title: 'Біологія' },
+	{ id: 7, title: "Історія" },
+	{ id: 8, title: 'Географія' },
+	{ id: 9, title: 'Література' },
+	{ id: 10, title: 'Інформатика'}
+];
+export const teachers = [
+	{ id: 1, name: 'Олександр Іванович', subjectId: 7},
+	{ id: 2, name: 'Наталія Борисівна', subjectId: 1},
+	{ id: 3, name: 'Іван Олександрович', subjectId: 5 },
+	{ id: 4, name: 'Оксана Василіївна', subjectId: 9},
+	{ id: 5, name: 'Андрій Іванович', subjectId: 4 },
+	{ id: 6, name: 'Тетяна Миколаївна', subjectId: 10 },
+	{ id: 7, name: 'Михайло Сергійович', subjectId: 1},
+	{ id: 8, name: 'Вікторія Ігорівна', subjectId: 3},
+	{ id: 9, name: 'Сергій Вікторович', subjectId: 8},
+	{ id: 10, name: 'Юлія Юріївна', subjectId: 6 },
+	{ id: 11, name: 'Артем Олександрович', subjectId: 7},
+	{ id: 12, name: 'Олена Вячеславівна', subjectId: 2 },
+	{ id: 13, name: 'Володимир Михайлович', subjectId: 5},
+	{ id: 14, name: 'Mapина Андріївна', subjectId: 9},
+	{ id: 15, name: 'Василь Петрович', subjectId: 4},
+	{ id: 16, name: 'Андрій Леонідович', subjectId: 2 },
+	{ id: 17, name: 'Людмила Миколаївна', subjectId: 10 },
+	{ id: 18, name: 'Тетяна Борисівна', subjectId: 3 },
+	{ id: 19, name: 'Наталія Володимирівна', subjectId: 3 },
+]

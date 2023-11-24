@@ -1,25 +1,74 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store'
 import HomeView from '../views/HomeView.vue'
+import LoginPageView from '../views/LoginPageView.vue'
+import PageNotFound from '../views/PageNotFound.vue'
 
 const routes = [
-    {
-        path: '/',
-        name: 'home',
-        component: HomeView,
-    },
-    {
-        path: '/about',
-        name: 'about',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
-    },
+	{
+		path: '/',
+		name: 'home',
+		component: HomeView,
+		meta: { requiresAuth: false }
+	},
+	{
+		path: '/login',
+		name: 'login',
+		component: LoginPageView,
+		meta: { requiresAuth: false }
+	},
+	{
+		path: '/lessons/select',
+		name: 'lessons',
+		component: ()=> import('../views/SelectLessonsView.vue'),
+		meta: { requiresAuth: true }
+	},
+	{
+		path: '/lessons/:subjectIdList(\\d*)+',
+		name: 'teachers',
+		component: () => import('../views/SelectTeachersView.vue'),
+		props: true,
+		meta: { requiresAuth: true },
+		beforeEnter(to){
+			const subjectsFromStore = store.getters['subjects/getSubjectsList'];
+			const arr = to.params.subjectIdList;
+			if (arr.length){
+				const subjectsExist = arr.every(item => {
+					if (subjectsFromStore.find(subject=>subject.id == item)) return true;
+					else return false});
+				if (!subjectsExist) return { name: 'pageNotFound'};
+			} else return {name: 'lessons'}
+		}
+	},
+	{
+		path: '/lessons/:planned(\\d*\\d*-\\d*\\d*)+',
+		name: 'educationPlan',
+		component: () => import('../views/EducationPlanView.vue'),
+		props: true,
+		meta: { requiresAuth: false }
+	},
+	{
+		path: '/:pathMatch(.*)*',
+		name: 'pageNotFound',
+		component: PageNotFound,
+		meta: { requiresAuth: false }
+	},
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes,
+	history: createWebHistory(process.env.BASE_URL),
+	routes,
+})
+
+router.beforeEach((to)=>{
+	const isAuth = store.getters.getUserLogin !== null;
+	console.log('login: ', store.getters.getUserLogin);
+	if (to.meta.requiresAuth && !isAuth){
+		return {
+			name: 'login',
+			query: {redirect: to.fullPath}
+		}
+	}
 })
 
 export default router
