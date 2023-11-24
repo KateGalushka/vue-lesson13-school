@@ -3,6 +3,7 @@
 	<ol>
 		<li v-for="(item, index) in listWithNames" :key="index">
 			<span> {{ item.subjName }} </span> - <span> {{ item.teacherName }} </span>
+			<button @click="onDelete(index)">Delete</button>
 		</li>
 	</ol>
 	
@@ -40,6 +41,16 @@ import { mapGetters } from 'vuex';
 				return this.educationPlan;
 			}
 		},
+		methods: {
+			onDelete(index) {
+				this.educationPlan.splice(index,1);
+				if (this.educationPlan.length == 0){
+					this.$router.push({
+						name: 'lessons'
+					})
+				}
+			}
+		},
 	}
 </script>
 
@@ -48,8 +59,10 @@ ol{
 	max-width: 350px;
 	margin: 0 auto;
 	li{
-		text-align: left;
+		// text-align: left;
 		margin-bottom: 5px;
+		display: flex;
+		justify-content: space-between;
 	}
 }
 
