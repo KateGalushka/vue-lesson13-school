@@ -22,8 +22,8 @@ export default createStore({
 			 commit('updateUserParams', user)
 		 },
 		onExit({ commit }){
-			commit('exit')
-		 }
+			commit('exit');
+		}
 	 },
     modules: {
 		subjects,
