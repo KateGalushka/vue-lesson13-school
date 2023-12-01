@@ -4,7 +4,7 @@
 			<nav>
 				<router-link :to="{ name: 'home' }">Головна</router-link> |
 				<router-link :to="{ name: 'lessons' }">Уроки</router-link> |
-				<!-- <router-link :to="{name: 'teachers'}">Вчителі</router-link> -->
+				<router-link :to="{name: 'teachers'}">Вчителі</router-link>
 			</nav>
 			<div class="login-buttons">
 				<login-exit-buttons />

@@ -1,7 +1,8 @@
 <template>
-	<span v-if="getUserLogin"> {{ getUserLogin }}</span>
+	<span v-if="getUserParams"> {{ getUserParams.login }}</span>
 	<router-link v-else :to="{ name: 'login' }">ВХІД</router-link> / 
 	<button @click="onExit">Вихід</button>
+	
 </template>
 
 <script>
@@ -9,8 +10,9 @@ import { mapGetters,mapActions } from 'vuex';
 
 	export default {
 		name: 'LoginExitButtons',
+		
 		computed: {
-			...mapGetters(['getUserLogin']) 
+			...mapGetters(['getUserParams']) 
 		},
 		methods: {
 			...mapActions(['onExit']) 

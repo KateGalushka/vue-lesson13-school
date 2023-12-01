@@ -4,33 +4,24 @@ import teachers from './modules/teachers'
 
 export default createStore({
     state: {
-		userLogin: null,
-		userPassword: null
-		
+		userParams: null
 	 },
     getters: {
-		 getUserLogin: ({ userLogin }) => userLogin
-
+		 getUserParams: ({ userParams }) => userParams
 	 },
     mutations: {
-		 updateUserLogin(state, val){
-			state.userLogin = val
-		 },
-		 updateUserPassword(state, val){
-			state.userPassword = val
+		 updateUserParams(state, user){
+			 state.userParams = user
 		 },
 		 exit(state){
-			state.userLogin = null;
+			state.userParams = null;
 		 }
 	 },
     actions: {
-		 updateUserLogin({commit}, val){
-			 commit('updateUserLogin', val)
+		 updateUserParams({commit}, user){
+			 commit('updateUserParams', user)
 		 },
-		 updateUserPassword({ commit }, val){
-			 commit('updateUserPassword', val)
-		 },
-		 onExit({ commit }){
+		onExit({ commit }){
 			commit('exit')
 		 }
 	 },

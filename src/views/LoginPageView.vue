@@ -2,13 +2,13 @@
 	<div class="login-form">
 		<label>
 			Введіть логін:
-			<input v-model.lazy="userLogin" type="text">
+			<input v-model="user.login" type="text">
 		</label>
 		<label>
 			Введіть пароль:
-			<input v-model.lazy="userPassword" type="text">
+			<input v-model="user.password" type="text">
 		</label>
-		<button @click="onLogin">Увійти</button>
+		<button :disabled="isBtnDisabled" @click="onLogin">Увійти</button>
 
 	</div>
 </template>
@@ -20,33 +20,28 @@ import { mapActions } from 'vuex';
 		name: 'LoginPageView',
 		data() {
 			return {
-				userLoginValue: null,
-				userPasswordValue: null
+				user:{}
 			}
 		},
 		computed: {
-			userLogin: {
-				get(){
-					return this.userLoginValue;
-				},
-				set(val){
-					this.updateUserLogin(val)
-				}
-			},
-			userPassword: {
-				get(){
-					return this.userPasswordValue;
-				},
-				set(val){
-					this.updateUserPassword(val)
-				}
+			isBtnDisabled(){
+				return !this.user.login || !this.user.password;
 			},
 		},
+		
+		watch: {
+			user: {
+				handler(newVal) {
+					this.updateUserParams(newVal)
+				},
+				deep:true
+			}
+		},
 		methods: {
-			...mapActions(['updateUserLogin', 'updateUserPassword']),
+			...mapActions(['updateUserParams']),
 
 			onLogin() {
-				// this.updateUserLogin(this.userLogin);
+				this.updateUserParams(this.user);
 				if (this.$route.query.redirect){
 					this.$router.push({
 						path: this.$route.query.redirect,

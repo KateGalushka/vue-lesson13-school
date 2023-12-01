@@ -24,7 +24,7 @@ const routes = [
 		meta: { requiresAuth: true }
 	},
 	{
-		path: '/lessons/:subjectIdList(\\d*)+',
+		path: '/lessons/:subjectIdList(\\d+)*',
 		name: 'teachers',
 		component: () => import('../views/SelectTeachersView.vue'),
 		props: true,
@@ -41,11 +41,15 @@ const routes = [
 		}
 	},
 	{
-		path: '/lessons/:planned(\\d*\\d*-\\d*\\d*)+',
+		path: '/lessons/:planned(\\d+-\\d+)+',
 		name: 'educationPlan',
 		component: () => import('../views/EducationPlanView.vue'),
 		props: true,
-		meta: { requiresAuth: false }
+		meta: { requiresAuth: false },
+		beforeEnter(to,from){
+			if (from.name !== 'teachers') return { name:'pageNotFound'}
+			if (!to.params.planned?.length) return {name: 'lessons'}
+		}
 	},
 	{
 		path: '/:pathMatch(.*)*',
@@ -61,8 +65,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to)=>{
-	const isAuth = store.getters.getUserLogin !== null;
-	console.log('login: ', store.getters.getUserLogin);
+	const isAuth = store.getters.getUserParams !== null;
+	// console.log('login: ', store.getters.getUserParams);
 	if (to.meta.requiresAuth && !isAuth){
 		return {
 			name: 'login',
